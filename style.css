@@ -37,6 +37,24 @@ body {
     display: block;
 }
 
+.back-arrow {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 40px solid rgba(255, 255, 255, 0.4); /* Slightly see-through */
+    cursor: pointer;
+    z-index: 100; /* High number to stay on top */
+}
+
+.back-arrow:hover {
+    border-top-color: rgba(255, 255, 255, 0.8);
+}
+
 /*centers the items inside the menu*/
 /*fixme*/
 #menu-screen {
