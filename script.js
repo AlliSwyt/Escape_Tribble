@@ -108,9 +108,6 @@ function playTutorial() {
         pages.forEach(page => page.classList.add('hidden'));
     }
 
-
-    //Fixme add backArrow check which page functionality bc of bug with the backArrow rn
-
     function goBack() {
         if (!bookDropDoorZoomIn.classList.contains('hidden')) {
             goToBookDropDoorZoomOut();
