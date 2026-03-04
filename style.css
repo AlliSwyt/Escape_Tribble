@@ -183,3 +183,28 @@ body {
     z-index: 10;
 }
 
+#bookDropDoorHandleHandle-hitbox {
+    position: absolute;
+    top: 69%;
+    left: 43%;
+    width: 31%;
+    height: 13%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#bookDropDoorHandleKeyhole-hitbox {
+    position: absolute;
+    top: 35%;
+    left: 42%;
+    width: 8%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}

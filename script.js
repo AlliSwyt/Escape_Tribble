@@ -22,6 +22,8 @@ let hasBookDropKey = false;
 const bookDropHitbox = document.getElementById('bookDrop-hitbox');
 const bookDropDoorHitbox = document.getElementById('bookDropDoor-hitbox');
 const bookDropDoorHandleHitbox = document.getElementById("bookDropDoorHandle-hitbox");
+const bookDropDoorHandleHandleHitbox = document.getElementById("bookDropDoorHandleHandle-hitbox");
+const bookDropDoorHandleKeyholeHitbox = document.getElementById("bookDropDoorHandleKeyhole-hitbox");
 const bookDropClosedHitbox = document.getElementById("bookDropClosed-hitbox");
 const bookDropOpenHitbox = document.getElementById('bookDropOpen-hitbox');
 const bookDropKeyHitbox = document.getElementById("bookDropKey-hitbox");
@@ -77,6 +79,10 @@ function playTutorial() {
         hideAllTutorialPages();
         bookDropDoorHandle.classList.remove('hidden');
         backArrow.addEventListener('click', goBack);
+
+        //fixme add functionality to open door if they have key and whatnot and feedback if they don't have key
+        //bookDropDoorHandleKeyholeHitbox.addEventListener('click', ...);
+        //bookDropDoorHandleHandleHitbox.addEventListener('click', ...);
     }
 
     function goToBookDropOpen() {
