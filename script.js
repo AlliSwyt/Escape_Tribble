@@ -16,6 +16,7 @@ const bookDropOpenKey = document.getElementById("bookDropOpenKeyPage");
 const bookDropOpen = document.getElementById("bookDropOpenPage");
 
 const bookDropDoorOpen = document.getElementById('bookDropDoorOpenPage');
+const bookDropBooks = document.getElementById('bookDropBooksPage');
 
 //booleans to track whether user has keys
 let hasBookDropKey = false;
@@ -30,6 +31,9 @@ const bookDropDoorHandleKeyholeHitbox = document.getElementById("bookDropDoorHan
 const bookDropClosedHitbox = document.getElementById("bookDropClosed-hitbox");
 const bookDropOpenHitbox = document.getElementById('bookDropOpen-hitbox');
 const bookDropKeyHitbox = document.getElementById("bookDropKey-hitbox");
+
+const bookDropBookCartHitbox = document.getElementById('bookDropBookCart-hitbox');
+const doorBehindBookDropHitbox = document.getElementById('doorBehindBookDrop-hitbox');
 
 
 
@@ -114,8 +118,9 @@ function playTutorial() {
         hideAllTutorialPages();
 
         bookDropDoorOpen.classList.remove('hidden');
-
         //fixme add hitboxes
+        //doorBehindBookDropHitbox.addEventListener('click', goToDoorBehindBookDropZoom);
+        //bookDropBookCartHitbox.addEventListener('click', goToBookDropBooks);
     }
 
     function unlockBookDropDoor() {
