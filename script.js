@@ -15,8 +15,11 @@ const bookDropClosed = document.getElementById('bookDropClosedPage');
 const bookDropOpenKey = document.getElementById("bookDropOpenKeyPage");
 const bookDropOpen = document.getElementById("bookDropOpenPage");
 
+const bookDropDoorOpen = document.getElementById('bookDropDoorOpenPage');
+
 //booleans to track whether user has keys
 let hasBookDropKey = false;
+let bookDropDoorIsUnlocked = false;
 
 //hitboxes
 const bookDropHitbox = document.getElementById('bookDrop-hitbox');
@@ -80,9 +83,8 @@ function playTutorial() {
         bookDropDoorHandle.classList.remove('hidden');
         backArrow.addEventListener('click', goBack);
 
-        //fixme add functionality to open door if they have key and whatnot and feedback if they don't have key
-        //bookDropDoorHandleKeyholeHitbox.addEventListener('click', ...);
-        //bookDropDoorHandleHandleHitbox.addEventListener('click', ...);
+        bookDropDoorHandleKeyholeHitbox.addEventListener('click', unlockBookDropDoor);
+        bookDropDoorHandleHandleHitbox.addEventListener('click', openBookDropDoorMaybe)
     }
 
     function goToBookDropOpen() {
@@ -95,6 +97,33 @@ function playTutorial() {
         else {
             bookDropOpen.classList.remove('hidden');
             bookDropOpenHitbox.addEventListener('click', goToBookDropClosed);
+        }
+    }
+
+    function openBookDropDoorMaybe() {
+        if(bookDropDoorIsUnlocked) {
+            openBookDropDoor();
+        }
+        else {
+            //fixme give feedback
+        }
+    }
+
+    //fixme add functionality for back arrow here
+    function openBookDropDoor() {
+        hideAllTutorialPages();
+
+        bookDropDoorOpen.classList.remove('hidden');
+
+        //fixme add hitboxes
+    }
+
+    function unlockBookDropDoor() {
+        if (hasBookDropKey) {
+            bookDropDoorIsUnlocked = true;
+        }
+        else {
+            //fixme place to add feedback
         }
     }
 
@@ -121,7 +150,10 @@ function playTutorial() {
         else if (!bookDropDoorHandle.classList.contains('hidden')) {
             goToBookDropDoorZoomIn();
         }
+
     }
+
+
 
 }
 
