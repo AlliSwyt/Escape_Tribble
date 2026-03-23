@@ -3,7 +3,8 @@ let score = 0;
 const state = {
     hasBdKey: false,
     bdUnlocked: false,
-    hasFbKey: false
+    hasFbKey: false,
+    bdBackDoorUnlocked: false
 }
 
 // ----- 2. SELECTORS -----
@@ -86,24 +87,25 @@ function init() {
         showPage('bd-slot-open-page');
     };
 
-    // Door Handle & Locking
+    // bd Door Handle & Locking
     document.getElementById('bd-door-keyhole-hitbox').onclick = () => {
         if (state.hasBdKey) {
             state.bdUnlocked = true;
-            alert("Unlocked!"); // Simple feedback
+            alert("Unlocked!"); // fixme feedback
         }
     };
     document.getElementById('bd-door-handle-hitbox').onclick = () => {
         if (state.bdUnlocked) {
             showPage('bd-door-open-page');
         } else {
-            alert("It's locked.");
+            alert("It's locked."); //fixme feedback
         }
     };
 
-    // Moving further inside
+    // book drop cart
     document.getElementById('bd-cart-hitbox').onclick = () => showPage('bd-cart-page');
     document.getElementById('bd-books-hitbox').onclick = () => showPage('bd-books-page');
+    document.getElementById('bd-fb-open-hitbox').onclick = () => showPage('bd-books-page');
 
     // Fish Book (FB)
     document.getElementById('bd-fb-hitbox').onclick = () => {
@@ -112,6 +114,23 @@ function init() {
     document.getElementById('bd-fb-key-hitbox').onclick = () => {
         state.hasFbKey = true;
         showPage('bd-fb-open-Page');
+    };
+
+    // door behind book drop and locking
+    document.getElementById('bd-back-door-hitbox').onclick = () => showPage('bd-back-door-handle-page');
+
+    document.getElementById('bd-back-handle-keyhole-hitbox').onclick = () => {
+        if (state.hasFbKey) {
+            state.bdBackDoorUnlocked = true;
+            alert("Unlocked!"); // fixme feedback
+        }
+    };
+    document.getElementById('bd-back-handle-handle-hitbox').onclick = () => {
+        if (state.bdBackDoorUnlocked) {
+            showPage('bd-back-door-open-page');
+        } else {
+            alert("It's locked."); //fixme feedback
+        }
     };
 }
 
