@@ -50,11 +50,13 @@ function goBack() {
         case 'bd-slot-open-key-page':
         case 'bd-slot-open-page':   showPage('bd-closed-page'); break;
 
-        case 'bd-cart-page':        showPage('bd-door-open-page'); break;
+        case 'bd-cart-page':
+        case 'bd-back-door-handle-page':    showPage('bd-door-open-page'); break;
+
         case 'bd-books-page':       showPage('bd-cart-page'); break;
 
         case 'bd-fb-open-key-page':
-        case 'bd-fb-open-Page':     showPage('bd-books-page'); break;
+        case 'bd-fb-open-page':     showPage('bd-books-page'); break;
     }
 }
 
@@ -132,7 +134,7 @@ function init() {
 
     // Fish Book (FB)
     document.getElementById('bd-fb-hitbox').onclick = () => {
-        state.hasFbKey ? showPage('bd-fb-open-Page') : showPage('bd-fb-open-key-page');
+        state.hasFbKey ? showPage('bd-fb-open-page') : showPage('bd-fb-open-key-page');
     };
     document.getElementById('bd-fb-key-hitbox').onclick = () => {
         state.hasFbKey = true;
@@ -140,7 +142,7 @@ function init() {
         if (keySlot) {
             keySlot.classList.remove('hidden');
         }
-        showPage('bd-fb-open-Page');
+        showPage('bd-fb-open-page');
     };
 
     // door behind book drop and locking
