@@ -3,6 +3,7 @@ let score = 0;
 const state = {
     hasBdKey: false,
     hasFbKey: false,
+    hasPrKey: false,
     hasPwBook: false,
     bdUnlocked: false,
     bdBackDoorUnlocked: false
@@ -61,12 +62,15 @@ function goBack() {
 
         case'pr-main-page': showPage('pr-steps-page'); break;
 
+        case 'pr-wr-main-page':
         case 'pr-pw-main-book-page':
         case 'pr-pw-main-noBook-page': showPage('pr-main-page'); break;
 
         case 'pr-pw-hole-book-page': showPage('pr-pw-main-book-page'); break;
-
         case 'pr-pw-hole-noBook-page': showPage('pr-pw-main-noBook-page'); break;
+
+        case 'pr-wr-wires-page': showPage('pr-wr-main-page'); break;
+        case 'pr-wr-box-page': showPage('pr-wr-wires-page'); break;
     }
 }
 
@@ -310,6 +314,13 @@ function init() {
         // fixme
         showPage('pr-pw-hole-noBook-page');
     }
+
+    //Wire Room Section
+    document.getElementById('pr-wr-hitbox').onclick = () => showPage('pr-wr-main-page');
+    document.getElementById('pr-wr-wires-hitbox').onclick = () => showPage('pr-wr-wires-page');
+    document.getElementById('pr-wr-box-hitbox').onclick = () => showPage('pr-wr-box-page');
+    //fixme - connect to puzzle
+    //document.getElementById('pr-wr-puzzle-hitbox').onclick = () => ;
 
 }
 

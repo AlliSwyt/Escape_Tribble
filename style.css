@@ -594,7 +594,7 @@ input[type="range"]::-webkit-slider-thumb {
     top: 47%;
     left: 42%;
     width: 14%;
-    height: 18%;
+    height: 20%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -712,6 +712,45 @@ input[type="range"]::-webkit-slider-thumb {
     left: 34%;
     width: 36%;
     height: 40%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-wr-wires-hitbox {
+    position: absolute;
+    top: 0%;
+    left: 25%;
+    width: 48%;
+    height: 99%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-wr-box-hitbox {
+    position: absolute;
+    top: 6%;
+    left: 48%;
+    width: 24%;
+    height: 78%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-wr-puzzle-hitbox {
+    position: absolute;
+    top: 27%;
+    left: 32%;
+    width: 67%;
+    height: 35%;
 
     background-color: transparent;
     border: 2px solid yellow;
