@@ -114,6 +114,7 @@ function init() {
         showPage('bd-main-page');
         document.getElementById('inventory-drawer').classList.remove('hidden');
         document.getElementById('hamburger-menu').classList.remove('hidden');
+        document.getElementById('hint-btn').classList.remove('hidden');
     };
 
     //How to Play button
@@ -181,10 +182,18 @@ function init() {
         tutorial.classList.add('hidden');
         document.getElementById('inventory-drawer').classList.add('hidden');
         document.getElementById('hamburger-menu').classList.add('hidden');
+        document.getElementById('hint-btn').classList.add('hidden');
         menu.classList.remove('hidden');
         runMenuTypewriter();
     };
 
+    // ---- HINT BUTTON ----
+    const hintBtn = document.getElementById('hint-btn');
+    const hintBox = document.getElementById('hint-box');
+
+    hintBtn.onclick = () => {
+        hintBox.classList.toggle('hint-open');
+    };
 
     backArrow.onclick = goBack;
 
