@@ -93,6 +93,66 @@ body {
     display: block;
 }
 
+/* ---- HINT BUTTON ---- */
+#hint-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(100, 20, 30, 0.85);
+    color: #c9a84c;
+    border: 1px solid rgba(180, 140, 40, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 300;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#hint-btn:hover {
+    background: rgba(130, 30, 40, 0.95);
+    transform: scale(1.05);
+}
+
+#hint-btn:active {
+    transform: scale(0.95);
+}
+
+/* ---- HINT BOX ---- */
+#hint-box {
+    position: absolute;
+    bottom: 75px;
+    right: 20px;
+    width: 260px;
+    background: rgba(100, 20, 30, 0.92);
+    color: #c9a84c;
+    border: 0px solid rgba(180, 140, 40, 0.5);
+    border-radius: 4px;
+    font-family: 'Special Elite', cursive;
+    font-size: 15px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    padding: 14px 16px;
+    z-index: 299;
+    overflow: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+#hint-box.hint-open {
+    max-height: 300px;
+    padding: 14px 16px;
+    border-width: 1px;
+}
+
+
 /* --- 3. THE CLICKABLE TAB (The Handle) --- */
 #inventory-tab {
     position: absolute;
@@ -593,61 +653,106 @@ body {
     z-index: 10;
 }
 
-/* ---- HINT BUTTON ---- */
-#hint-btn {
+#bd-back-door-open-hitbox {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    background: rgba(100, 20, 30, 0.85);
-    color: #c9a84c;
-    border: 1px solid rgba(180, 140, 40, 0.5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Special Elite', cursive;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 300;
-    transition: background 0.2s, transform 0.1s;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
 }
 
-#hint-btn:hover {
-    background: rgba(130, 30, 40, 0.95);
-    transform: scale(1.05);
-}
-
-#hint-btn:active {
-    transform: scale(0.95);
-}
-
-/* ---- HINT BOX ---- */
-#hint-box {
+#bd-back-door-enter-hitbox {
     position: absolute;
-    bottom: 75px;
-    right: 20px;
-    width: 260px;
-    background: rgba(100, 20, 30, 0.92);
-    color: #c9a84c;
-    border: 0px solid rgba(180, 140, 40, 0.5);
-    border-radius: 4px;
-    font-family: 'Special Elite', cursive;
-    font-size: 15px;
-    letter-spacing: 1px;
-    line-height: 1.6;
-    padding: 14px 16px;
-    z-index: 299;
-    overflow: hidden;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
 }
 
-#hint-box.hint-open {
-    max-height: 300px;
-    padding: 14px 16px;
-    border-width: 1px;
+#pr-steps-enter-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-pw-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-pw-hb-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-pw-he-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-pw-hole-book-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#pr-pw-hole-noBook-hitbox {
+    position: absolute;
+    top: 47%;
+    left: 42%;
+    width: 14%;
+    height: 18%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
 }
