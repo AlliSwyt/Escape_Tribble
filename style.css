@@ -304,6 +304,8 @@ body {
 }
 
 #hamburger-dropdown {
+    position: absolute;
+    right: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
