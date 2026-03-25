@@ -655,10 +655,10 @@ body {
 
 #bd-back-door-open-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
+    top: 6%;
+    left: 66%;
     width: 14%;
-    height: 18%;
+    height: 92%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -668,10 +668,10 @@ body {
 
 #bd-back-door-enter-hitbox {
     position: absolute;
-    top: 47%;
+    top: 6%;
     left: 42%;
-    width: 14%;
-    height: 18%;
+    width: 23%;
+    height: 92%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -681,10 +681,10 @@ body {
 
 #pr-steps-enter-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -694,10 +694,10 @@ body {
 
 #pr-pw-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 5%;
+    left: 0%;
+    width: 53%;
+    height: 66%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -707,10 +707,10 @@ body {
 
 #pr-pw-hb-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 37%;
+    left: 40%;
+    width: 6%;
+    height: 9%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -720,10 +720,10 @@ body {
 
 #pr-pw-he-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 42%;
+    left: 31%;
+    width: 6%;
+    height: 9%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -733,10 +733,10 @@ body {
 
 #pr-pw-hole-book-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 55%;
+    left: 27%;
+    width: 27%;
+    height: 22%;
 
     background-color: transparent;
     border: 2px solid yellow;
@@ -746,10 +746,10 @@ body {
 
 #pr-pw-hole-noBook-hitbox {
     position: absolute;
-    top: 47%;
-    left: 42%;
-    width: 14%;
-    height: 18%;
+    top: 33%;
+    left: 34%;
+    width: 36%;
+    height: 40%;
 
     background-color: transparent;
     border: 2px solid yellow;
