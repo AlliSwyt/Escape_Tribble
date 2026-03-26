@@ -1119,7 +1119,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* Container holds the book and hitbox together */
 
 /* Overlay wrapper */
-#pw-book-overlay {
+#item-overlay {
     position: fixed;
     inset: 0;
     z-index: 9999;
@@ -1137,8 +1137,8 @@ input[type="range"]::-webkit-slider-thumb {
     z-index: 1;
 }
 
-/* Book image container */
-.book-container {
+/* image container */
+.item-container {
     position: relative;
     z-index: 2;
     background: transparent;
@@ -1146,15 +1146,15 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 0;
 }
 
-/* Book image */
-#inv-pw-book-img {
+/* Item image */
+#item-overlay-img {
     max-width: 70vw;
     max-height: 80vh;
     border-radius: 10px;
 }
 
 /* Close button */
-#book-close-btn {
+#item-close-btn {
     position: absolute;
     top: -10px;
     right: -10px;

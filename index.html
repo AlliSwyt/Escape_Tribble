@@ -53,7 +53,8 @@
                     <span class="emoji-icon">🗝️</span>
 <!--                    <span class="inv-label">Fish Book Key</span>-->
                 </div>
-                <div id="inv-pw-book" class="inv-item hidden" title="Orange Book">
+                <div id="inv-pw-book" class="inv-item hidden" title="Orange Book"
+                    data-img="inv-images/pw-book.png">
                     <span class="emoji-icon">📙</span>
 <!--                    <span class="inv-label">PW Book</span>-->
                 </div>
@@ -380,11 +381,12 @@
 
         <!-- INVENTORY INSPECTION -->
 
-        <div id="pw-book-overlay" class="hidden">
+        <div id="item-overlay" class="hidden">
             <div class="overlay-backdrop"></div>
-            <div class="book-container">
-                <img id="inv-pw-book-img" src="inv-images/pw-book.png" alt="Inventory Item">
-                <button id="book-close-btn">✕</button>
+
+            <div class="item-container">
+                <img id="item-overlay-img" src="" alt="Inventory Item">
+                <button id="item-close-btn">✕</button>
             </div>
         </div>
 

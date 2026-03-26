@@ -480,23 +480,28 @@ function init() {
 
     // ------ INVENTORY INSPECTION -----
 
-    const bookItem = document.getElementById("inv-pw-book");
-    const bookOverlay = document.getElementById("pw-book-overlay");
-    const closeBtn = document.getElementById("book-close-btn");
+    const overlay = document.getElementById("item-overlay");
+    const closeBtn = document.getElementById("item-close-btn");
+    const overlayImg = document.getElementById("item-overlay-img");
 
-    console.log({
-        bookItem,
-        bookOverlay,
-        closeBtn
-    });
-// Open overlay when clicking inventory item
-    bookItem.addEventListener("click", () => {
-        bookOverlay.classList.remove("hidden");
-    });
-
-// Close overlay when clicking X
+// Close overlay
     closeBtn.addEventListener("click", () => {
-        bookOverlay.classList.add("hidden");
+        overlay.classList.add("hidden");
+    });
+
+// Make ALL inventory items clickable
+    const inventoryItems = document.querySelectorAll(".inv-item");
+
+    inventoryItems.forEach(item => {
+        item.addEventListener("click", () => {
+
+            const imgSrc = item.dataset.img;
+
+            if (!imgSrc) return;
+
+            overlayImg.src = imgSrc;
+            overlay.classList.remove("hidden");
+        });
     });
 
 }
