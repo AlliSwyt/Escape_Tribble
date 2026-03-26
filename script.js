@@ -52,36 +52,28 @@ function goBack() {
     if (!current) return;
 
     switch (current.id) {
+        //book drop
         case 'bd-door-page':
         case 'bd-door-open-page':   showPage('bd-main-page'); break;
-
         case 'bd-slot-closed-page':
         case 'bd-door-handle-page': showPage('bd-door-page'); break;
-
         case 'bd-slot-open-key-page':
         case 'bd-slot-open-page':   showPage('bd-slot-closed-page'); break;
-
         case 'bd-cart-page':
         case 'bd-back-door-handle-page':    showPage('bd-door-open-page'); break;
-
         case 'bd-books-page':       showPage('bd-cart-page'); break;
-
         case 'bd-fb-open-key-page':
         case 'bd-fb-open-page':     showPage('bd-books-page'); break;
-
         case 'bd-back-door-open-page': showPage('bd-door-open-page'); break;
 
+        //Projector room
         case 'pr-steps-page': showPage('bd-back-door-open-page'); break;
-
         case 'pr-main-page': showPage('pr-steps-page'); break;
-
         case 'pr-wr-main-page':
         case 'pr-pw-main-book-page':
         case 'pr-pw-main-noBook-page': showPage('pr-main-page'); break;
-
         case 'pr-pw-hole-book-page': showPage('pr-pw-main-book-page'); break;
         case 'pr-pw-hole-noBook-page': showPage('pr-pw-main-noBook-page'); break;
-
         case 'pr-wr-wires-page': showPage('pr-wr-main-page'); break;
         case 'pr-wr-box-page': showPage('pr-wr-wires-page'); break;
 
@@ -96,9 +88,12 @@ function goBack() {
         //main hall left backward progression
         case 'mh-sl-left-endc-page':   showPage('mh-hall-left-endc-page'); break;
         case 'mh-hall-left-endc-page':   showPage('mh-bh-left-endc-page'); break;
-        case 'mh-bh-left-endc-page':   showPage('mh-bd-left-endc-page'); break;s
+        case 'mh-bh-left-endc-page':   showPage('mh-bd-left-endc-page'); break;
         case 'mh-bd-left-endc-page':   showPage('mh-li-left-endc-page'); break;
         case 'mh-li-left-endc-page':   showPage('mh-cend-left-endc-page'); break;
+
+        //kitchen
+        case 'ki-door-handle-page': showPage('ki-door-closed-page'); break;
     }
 }
 
@@ -122,6 +117,10 @@ function goForward() {
         case 'mh-bd-left-endc-page':   showPage('mh-bh-left-endc-page'); break;
         case 'mh-bh-left-endc-page':   showPage('mh-hall-left-endc-page'); break;
         case 'mh-hall-left-endc-page':   showPage('mh-sl-left-endc-page'); break;
+
+        //back hall pages
+        case 'bh-entrance-page': showPage('bh-2-page'); break;
+        case 'bh-2-page': showPage('bh-3-page'); break;
     }
 }
 
