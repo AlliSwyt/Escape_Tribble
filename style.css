@@ -1021,3 +1021,81 @@ input[type="range"]::-webkit-slider-thumb {
 #wire-popup-close {
     opacity: 1;
 }
+
+#ki-door-handle-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-door-handle-keyhole-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-door-handle-handle-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#li-door-handle-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#li-door-handle-keyhole-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#li-door-handle-handle-hitbox {
+    position: absolute;
+    top: 42%;
+    left: 31%;
+    width: 7%;
+    height: 11%;
+
+    background-color: transparent;
+    border: 2px solid yellow;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}

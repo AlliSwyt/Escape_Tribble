@@ -89,7 +89,7 @@ function goBack() {
         //main hall left backward progression
         case 'mh-sl-left-endc-page':   showPage('mh-hall-left-endc-page'); break;
         case 'mh-hall-left-endc-page':   showPage('mh-bh-left-endc-page'); break;
-        case 'mh-bh-left-endc-page':   showPage('mh-bd-left-endc-page'); break;
+        case 'mh-bh-left-endc-page':   showPage('mh-bd-left-endc-page'); break;s
         case 'mh-bd-left-endc-page':   showPage('mh-li-left-endc-page'); break;
         case 'mh-li-left-endc-page':   showPage('mh-cend-left-endc-page'); break;
     }
@@ -125,6 +125,17 @@ function goRight() {
 
     switch (current.id) {
         case 'bd-main-page': showPage('mh-bd-right-endc-page'); break;
+
+        //main hall pages
+        case 'mh-bd-left-endc-page': showPage('bd-main-page'); break;
+        case 'mh-sl-left-endc-page': showPage('mh-sld-page'); break;
+        case 'mh-sld-page': showPage('mh-sl-right-endc-page'); break;
+        case 'mh-cend-right-endc-kc-page': showPage('ki-door-closed-page'); break;
+        case 'ki-door-closed-page': showPage('mh-cend-left-endc-page'); break;
+        case 'mh-bh-right-endc-page': showPage('bh-entrance-page'); break;
+        case 'bh-entrance-page': showPage('mh-bh-left-endc-page'); break;
+        case 'mh-li-left-endc-page': showPage('li-door-closed-page'); break;
+        case 'li-door-closed-page': showPage('mh-li-right-endc-page'); break;
     }
 }
 
@@ -135,6 +146,17 @@ function goLeft() {
 
     switch (current.id) {
         case 'bd-main-page': showPage('mh-bd-left-endc-page'); break;
+
+        //main hall pages
+        case 'mh-bd-right-endc-page': showPage('bd-main-page'); break;
+        case 'mh-sl-right-endc-page': showPage('mh-sld-page'); break;
+        case 'mh-sld-page': showPage('mh-sl-left-endc-page'); break;
+        case 'mh-cend-left-endc-page': showPage('ki-door-closed-page'); break;
+        case 'ki-door-closed-page': showPage('mh-cend-right-endc-kc-page'); break;
+        case 'mh-bh-left-endc-page': showPage('bh-entrance-page'); break;
+        case 'bh-entrance-page': showPage('mh-bh-right-endc-page'); break;
+        case 'mh-li-right-endc-page': showPage('li-door-closed-page'); break;
+        case 'li-door-closed-page': showPage('mh-li-left-endc-page'); break;
     }
 }
 
