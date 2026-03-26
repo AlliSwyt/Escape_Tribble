@@ -199,6 +199,31 @@
             <div id="pr-wr-puzzle-hitbox"></div>
         </div>
 
+        <!-- Wire Puzzle -->
+        <div id="wire-puzzle" class="hidden">
+            <div id="wire-puzzle-container">
+                <h2 id="wire-puzzle-title">Connect the Wires</h2>
+                <canvas id="wire-canvas"></canvas>
+                <div id="wire-solved-popup" class="hidden">
+                    <p>Circuit complete! The code is:</p>
+                    <h3 id="wire-code">7429</h3>
+                    <div class="menu-btn" id="wire-popup-close">Got it!</div>
+                </div>
+                <div class="menu-btn" id="wire-exit-btn">Exit Puzzle</div>
+            </div>
+        </div>
+
+        <!-- Map Screen -->
+        <div id="map-screen" class="hidden">
+            <h2 id="map-title">Map</h2>
+            <div id="map-container">
+                <div id="map-room-bd" class="map-room hidden">Book Drop</div>
+                <div id="map-connector-bd-pr" class="map-connector hidden">↓</div>
+                <div id="map-room-pr" class="map-room hidden">Projector Room</div>
+            </div>
+            <div class="menu-btn" id="map-close-btn">Close</div>
+        </div>
+
         <!-- In-Game Hamburger Menu -->
         <div id="hamburger-menu" class="hidden">
             <div id="hamburger-icon">
@@ -207,6 +232,7 @@
                 <div class="hamburger-line"></div>
             </div>
             <div id="hamburger-dropdown" class="dropdown-closed">
+                <div class="dropdown-item" id="map-btn">View Map</div>
                 <div class="dropdown-item" id="restart-btn">Restart</div>
                 <div class="dropdown-item" id="quit-btn">Exit to Main Menu</div>
             </div>

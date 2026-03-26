@@ -6,7 +6,9 @@ const state = {
     hasPrKey: false,
     hasPwBook: false,
     bdUnlocked: false,
-    bdBackDoorUnlocked: false
+    bdBackDoorUnlocked: false,
+    discoveredBd: false,
+    discoveredPr: false
 }
 
 // ----- 2. SELECTORS -----
@@ -33,6 +35,7 @@ function showPage(pageId) {
     } else {
         backArrow.classList.remove('hidden');
     }
+    updateMap(pageId);
 }
 
 // ---- 4. NAVIGATION LOGIC -----
@@ -170,12 +173,24 @@ function init() {
         window.close();
     };
 
+
     // ---- IN-GAME HAMBURGER MENU ----
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const hamburgerDropdown = document.getElementById('hamburger-dropdown');
 
     hamburgerIcon.onclick = () => {
         hamburgerDropdown.classList.toggle('dropdown-open');
+    };
+
+    // View Map button
+    document.getElementById('map-btn').onclick = () => {
+        hamburgerDropdown.classList.remove('dropdown-open');
+        document.getElementById('map-screen').classList.remove('hidden');
+    };
+
+    // Close map button
+    document.getElementById('map-close-btn').onclick = () => {
+        document.getElementById('map-screen').classList.add('hidden');
     };
 
     //Restart button
@@ -319,9 +334,258 @@ function init() {
     document.getElementById('pr-wr-hitbox').onclick = () => showPage('pr-wr-main-page');
     document.getElementById('pr-wr-wires-hitbox').onclick = () => showPage('pr-wr-wires-page');
     document.getElementById('pr-wr-box-hitbox').onclick = () => showPage('pr-wr-box-page');
-    //fixme - connect to puzzle
-    //document.getElementById('pr-wr-puzzle-hitbox').onclick = () => ;
+    // Wire puzzle
+    document.getElementById('pr-wr-puzzle-hitbox').onclick = () => {
+        openWirePuzzle();
+    };
 
+    // Wire puzzle exit button
+    document.getElementById('wire-exit-btn').onclick = () => {
+        document.getElementById('wire-puzzle').classList.add('hidden');
+        document.getElementById('wire-solved-popup').classList.add('hidden');
+    };
+
+    // Wire puzzle popup close button
+    document.getElementById('wire-popup-close').onclick = () => {
+        document.getElementById('wire-solved-popup').classList.add('hidden');
+    };
+}
+
+// ---- MAP SYSTEM ----
+function updateMap(currentRoom) {
+    // Discover rooms based on current room
+    if (currentRoom.startsWith('bd-')) state.discoveredBd = true;
+    if (currentRoom.startsWith('pr-')) state.discoveredPr = true;
+
+    // Show discovered rooms
+    if (state.discoveredBd) document.getElementById('map-room-bd').classList.remove('hidden');
+    if (state.discoveredPr) {
+        document.getElementById('map-room-pr').classList.remove('hidden');
+        document.getElementById('map-connector-bd-pr').classList.remove('hidden');
+    }
+
+    // Highlight current room
+    document.querySelectorAll('.map-room').forEach(r => r.classList.remove('current-room'));
+    if (currentRoom.startsWith('bd-')) document.getElementById('map-room-bd').classList.add('current-room');
+    if (currentRoom.startsWith('pr-')) document.getElementById('map-room-pr').classList.add('current-room');
+}
+
+// ---- WIRE PUZZLE SYSTEM ----
+function openWirePuzzle() {
+    document.getElementById('wire-puzzle').classList.remove('hidden');
+    initWirePuzzle();
+}
+
+function initWirePuzzle() {
+    const canvas = document.getElementById('wire-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Canvas size
+    canvas.width = 500;
+    canvas.height = 350;
+
+    const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6'];
+    const colorNames = ['red', 'blue', 'green', 'yellow', 'purple'];
+    const numWires = 5;
+    const nodeRadius = 14;
+    const leftX = 80;
+    const rightX = 420;
+
+    // Shuffle right side order
+    const rightOrder = [0, 1, 2, 3, 4];
+    for (let i = rightOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rightOrder[i], rightOrder[j]] = [rightOrder[j], rightOrder[i]];
+    }
+
+    // Node positions
+    const leftNodes = colors.map((c, i) => ({
+        x: leftX,
+        y: 50 + i * 60,
+        color: c,
+        index: i
+    }));
+
+    const rightNodes = rightOrder.map((colorIdx, i) => ({
+        x: rightX,
+        y: 50 + i * 60,
+        color: colors[colorIdx],
+        index: colorIdx
+    }));
+
+    let connections = {}; // leftIndex -> rightIndex
+    let dragging = false;
+    let dragStart = null;
+    let dragCurrent = null;
+    let errorFlash = false;
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw left labels
+        leftNodes.forEach((node, i) => {
+            ctx.font = '14px serif';
+            ctx.fillStyle = '#c9a84c';
+            ctx.textAlign = 'right';
+            ctx.fillText(colorNames[i], node.x - nodeRadius - 5, node.y + 5);
+        });
+
+        // Draw right labels
+        rightNodes.forEach((node, i) => {
+            ctx.font = '14px serif';
+            ctx.fillStyle = '#c9a84c';
+            ctx.textAlign = 'left';
+            ctx.fillText(colorNames[node.index], node.x + nodeRadius + 5, node.y + 5);
+        });
+
+        // Draw connections
+        Object.entries(connections).forEach(([leftIdx, rightIdx]) => {
+            const left = leftNodes[leftIdx];
+            const right = rightNodes.find(n => n.index === parseInt(rightIdx));
+            if (!right) return;
+            const isCorrect = left.color === right.color;
+            ctx.beginPath();
+            ctx.moveTo(left.x, left.y);
+            ctx.lineTo(right.x, right.y);
+            ctx.strokeStyle = isCorrect ? left.color : '#ff0000';
+            ctx.lineWidth = 4;
+            ctx.shadowColor = isCorrect ? left.color : '#ff0000';
+            ctx.shadowBlur = 10;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        });
+
+        // Draw drag line
+        if (dragging && dragStart && dragCurrent) {
+            ctx.beginPath();
+            ctx.moveTo(dragStart.x, dragStart.y);
+            ctx.lineTo(dragCurrent.x, dragCurrent.y);
+            ctx.strokeStyle = dragStart.color;
+            ctx.lineWidth = 3;
+            ctx.setLineDash([6, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // Draw left nodes
+        leftNodes.forEach(node => {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+            ctx.fillStyle = connections[node.index] !== undefined ? node.color : 'rgba(0,0,0,0.5)';
+            ctx.fill();
+            ctx.strokeStyle = node.color;
+            ctx.lineWidth = 3;
+            ctx.shadowColor = node.color;
+            ctx.shadowBlur = connections[node.index] !== undefined ? 15 : 5;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        });
+
+        // Draw right nodes
+        rightNodes.forEach(node => {
+            const connected = Object.values(connections).includes(node.index);
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+            ctx.fillStyle = connected ? node.color : 'rgba(0,0,0,0.5)';
+            ctx.fill();
+            ctx.strokeStyle = node.color;
+            ctx.lineWidth = 3;
+            ctx.shadowColor = node.color;
+            ctx.shadowBlur = connected ? 15 : 5;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        });
+
+        // Error flash
+        if (errorFlash) {
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.25)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    function getNodeAt(x, y, nodes) {
+        return nodes.find(n => Math.hypot(n.x - x, n.y - y) <= nodeRadius + 4);
+    }
+
+    function getCanvasPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+    }
+
+    function checkSolved() {
+        if (Object.keys(connections).length < numWires) return;
+        const allCorrect = Object.entries(connections).every(([leftIdx, rightIdx]) => {
+            const left = leftNodes[leftIdx];
+            const right = rightNodes.find(n => n.index === parseInt(rightIdx));
+            return left && right && left.color === right.color;
+        });
+        if (allCorrect) {
+            setTimeout(() => {
+                document.getElementById('wire-solved-popup').classList.remove('hidden');
+            }, 400);
+        }
+    }
+
+    canvas.onmousedown = (e) => {
+        const pos = getCanvasPos(e);
+        const node = getNodeAt(pos.x, pos.y, leftNodes);
+        if (node) {
+            dragging = true;
+            dragStart = node;
+            dragCurrent = pos;
+            // Remove existing connection from this node
+            delete connections[node.index];
+            draw();
+        }
+    };
+
+    canvas.onmousemove = (e) => {
+        if (!dragging) return;
+        dragCurrent = getCanvasPos(e);
+        draw();
+    };
+
+    canvas.onmouseup = (e) => {
+        if (!dragging) return;
+        dragging = false;
+        const pos = getCanvasPos(e);
+        const rightNode = getNodeAt(pos.x, pos.y, rightNodes);
+        if (rightNode && dragStart) {
+            // Check if right node already connected — remove old connection
+            Object.keys(connections).forEach(k => {
+                if (connections[k] === rightNode.index) delete connections[k];
+            });
+            connections[dragStart.index] = rightNode.index;
+
+            // Check if wrong — flash error
+            if (dragStart.color !== rightNode.color) {
+                errorFlash = true;
+                draw();
+                setTimeout(() => {
+                    errorFlash = false;
+                    draw();
+                }, 500);
+            }
+            checkSolved();
+        }
+        dragStart = null;
+        dragCurrent = null;
+        draw();
+    };
+
+    canvas.onmouseleave = () => {
+        if (dragging) {
+            dragging = false;
+            dragStart = null;
+            dragCurrent = null;
+            draw();
+        }
+    };
+
+    draw();
 }
 
 init();

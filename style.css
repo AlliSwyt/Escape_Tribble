@@ -817,3 +817,153 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 14px 16px;
     border-width: 1px;
 }
+
+/* ---- MAP SCREEN ---- */
+#map-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a0f00;
+    background-image: radial-gradient(ellipse at center, rgba(180, 120, 0, 0.35) 0%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 400;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+#map-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 50px;
+    color: #c9a84c;
+    text-shadow: 0 0 15px rgba(200, 160, 0, 0.5);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+#map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.map-room {
+    width: 180px;
+    height: 60px;
+    background: rgba(100, 20, 30, 0.7);
+    border: 2px solid rgba(180, 140, 40, 0.5);
+    border-radius: 6px;
+    color: #c9a84c;
+    font-family: 'Special Elite', cursive;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.map-room.current-room {
+    background: rgba(180, 120, 0, 0.6);
+    border-color: #c9a84c;
+    box-shadow: 0 0 15px rgba(200, 160, 0, 0.5);
+    color: #fff;
+}
+
+.map-connector {
+    color: #c9a84c;
+    font-size: 24px;
+    line-height: 1;
+}
+
+
+/* ---- WIRE PUZZLE ---- */
+#wire-puzzle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a0f00;
+    background-image: radial-gradient(ellipse at center, rgba(180, 120, 0, 0.35) 0%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+#wire-puzzle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+#wire-puzzle-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 40px;
+    color: #c9a84c;
+    text-shadow: 0 0 15px rgba(200, 160, 0, 0.5);
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+#wire-canvas {
+    border: 2px solid rgba(180, 140, 40, 0.5);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: crosshair;
+}
+
+#wire-exit-btn {
+    opacity: 1;
+}
+
+/* ---- WIRE SOLVED POPUP ---- */
+#wire-solved-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a0f00;
+    border: 2px solid #c9a84c;
+    border-radius: 8px;
+    padding: 30px 40px;
+    text-align: center;
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 0 30px rgba(200, 160, 0, 0.4);
+}
+
+#wire-solved-popup p {
+    font-family: 'Special Elite', cursive;
+    font-size: 20px;
+    color: #d4b896;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+#wire-code {
+    font-family: 'Special Elite', cursive;
+    font-size: 48px;
+    color: #c9a84c;
+    text-shadow: 0 0 20px rgba(200, 160, 0, 0.8);
+    margin: 0;
+    letter-spacing: 8px;
+}
+
+#wire-popup-close {
+    opacity: 1;
+}
