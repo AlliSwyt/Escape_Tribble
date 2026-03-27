@@ -103,6 +103,10 @@ function getDestination(direction, pageId) {
 
                 // Kitchen
                 case 'ki-door-handle-page': return 'ki-door-closed-page';
+
+                //library
+                case 'li-door-handle-page': return 'li-door-closed-page';
+
                 default: return null;
             }
 
