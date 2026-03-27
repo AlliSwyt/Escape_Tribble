@@ -542,6 +542,10 @@ function init() {
                     document.getElementById('pw-book-key-hitbox').classList.remove('hidden');
                     document.getElementById('pw-book-key-hitbox').onclick = () => {
                         state.hasKiKey = true;
+                        const keySlot = document.getElementById('inv-ki-key');
+                        if (keySlot) {
+                            keySlot.classList.remove('hidden');
+                        }
                         document.getElementById("item-overlay").classList.add("hidden");
                         openOverlay("pw-book", "inv-images/pw-book-open.png");
                     }
