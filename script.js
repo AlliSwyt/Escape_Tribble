@@ -2,8 +2,8 @@ let score = 0;
 // ------ 1. GAME STATE -----
 const state = {
     hasBdKey: false,
-    hasPrKey: false, //fixme temp name
-    hasKiKey: false, //fixme temp name
+    hasPrKey: false,
+    hasKiKey: false,
     hasLiKey: false,
     hasPwBook: false,
 
@@ -496,12 +496,71 @@ function init() {
         item.addEventListener("click", () => {
 
             const imgSrc = item.dataset.img;
+            const itemName = item.dataset.item; // IMPORTANT FIX
 
-            if (!imgSrc) return;
+            if (!imgSrc || !itemName) return;
 
-            overlayImg.src = imgSrc;
-            overlay.classList.remove("hidden");
+            openOverlay(itemName, imgSrc);
         });
+    });
+
+    let currentOverlayItem = null;
+
+    function openOverlay(itemName, imgSrc) {
+        currentOverlayItem = itemName;
+
+        const overlay = document.getElementById("item-overlay");
+        const img = document.getElementById("item-overlay-img");
+
+        img.src = imgSrc;
+        overlay.classList.remove("hidden");
+
+        setupOverlayHitboxes(itemName, imgSrc);
+    }
+
+    function setupOverlayHitboxes(itemName, imgSrc) {
+        // reset all first
+        const all = document.querySelectorAll("#overlay-hitbox-layer .hitbox")
+        all.forEach(h => {
+            h.classList.add('hidden');
+            h.onclick = null;
+        });
+
+        if (itemName === "pw-book") {
+            switch (imgSrc) {
+                case 'inv-images/pw-book.png': {
+                    document.getElementById('pw-book-hitbox').classList.remove('hidden');
+                    document.getElementById("pw-book-hitbox").onclick = () => {
+                        if (state.hasKiKey) {
+                            openOverlay("pw-book", "inv-images/pw-book-open.png");
+                        } else {
+                            openOverlay("pw-book", "inv-images/pw-book-open-key.png");
+                        }
+                    };
+                } break;
+                case 'inv-images/pw-book-open-key.png': {
+                    document.getElementById('pw-book-key-hitbox').classList.remove('hidden');
+                    document.getElementById('pw-book-key-hitbox').onclick = () => {
+                        state.hasKiKey = true;
+                        document.getElementById("item-overlay").classList.add("hidden");
+                        openOverlay("pw-book", "inv-images/pw-book-open.png");
+                    }
+                } break;
+                case 'inv-images/pw-book-open.png': {
+                    document.getElementById('pw-book-open-hitbox').classList.remove('hidden');
+                }
+
+            }
+        }
+    }
+
+    document.getElementById("item-close-btn").addEventListener("click", (e) => {
+        e.stopPropagation(); // IMPORTANT
+
+        const overlay = document.getElementById("item-overlay");
+        overlay.classList.add("hidden");
+
+        currentOverlayItem = null;
     });
 
 }

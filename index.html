@@ -45,22 +45,25 @@
         <div id="inventory-tab">Inventory</div>
         <div id="inventory-panel" class="inventory-closed">
             <div id="inventory-content">
-                <div id="inv-bd-key" class="inv-item hidden" title="Book Drop Key">
+                <div id="inv-bd-key" class="inv-item hidden" title="Book Drop Key"
+                     data-item="bd-key">
                     <span class="emoji-icon">🗝️</span>
-                    <!--<span class="inv-label">Book Drop Key</span> -->
                 </div>
-                <div id="inv-pr-key" class="inv-item hidden" title="Fish Book Key">
+
+                <div id="inv-pr-key" class="inv-item hidden" title="Fish Book Key"
+                     data-item="pr-key">
                     <span class="emoji-icon">🗝️</span>
-<!--                    <span class="inv-label">Fish Book Key</span>-->
                 </div>
+
                 <div id="inv-pw-book" class="inv-item hidden" title="Orange Book"
-                    data-img="inv-images/pw-book.png">
+                     data-item="pw-book"
+                     data-img="inv-images/pw-book.png">
                     <span class="emoji-icon">📙</span>
-<!--                    <span class="inv-label">PW Book</span>-->
                 </div>
-                <div id="inv-ki-key" class="inv-item hidden" title="Orange Book Key">
+
+                <div id="inv-ki-key" class="inv-item hidden" title="Orange Book Key"
+                     data-item="ki-key">
                     <span class="emoji-icon">🗝️</span>
-<!--                    <span class="inv-label">Orange Book Key</span>-->
                 </div>
                 <div class="inv-item empty"></div>
                 <div class="inv-item empty"></div>
@@ -386,6 +389,14 @@
 
             <div class="item-container">
                 <img id="item-overlay-img" src="" alt="Inventory Item">
+                <div id="overlay-hitbox-layer">
+
+                    <div id="pw-book-hitbox" class="hitbox hidden"></div>
+                    <div id="pw-book-open-hitbox" class="hitbox hidden"></div>
+                    <div id="pw-book-key-hitbox" class="hitbox hidden"></div>
+<!--                    <div id="hitbox-secret" class="hitbox"></div>-->
+
+                </div>
                 <button id="item-close-btn">✕</button>
             </div>
         </div>
