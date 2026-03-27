@@ -28,7 +28,6 @@ const allPages = document.querySelectorAll('.fit');
 const inventoryTab = document.getElementById('inventory-tab');
 
 // ----- 3. CORE FUNCTIONS ----
-
 function showPage(pageId) {
     // Switch the page visibility
     allPages.forEach(p => p.classList.add('hidden'));
@@ -47,13 +46,6 @@ function showPage(pageId) {
 
     updateMap(pageId);
 }
-
-// Helper to dry up the code
-function toggleArrow(arrowElement, shouldShow) {
-    if (!arrowElement) return;
-    arrowElement.classList.toggle('hidden', !shouldShow);
-}
-
 
 
 // ---- 4. NAVIGATION LOGIC -----
@@ -181,14 +173,10 @@ function move(dir) {
     if (dest) showPage(dest);
 }
 
-function canGo(direction, pageId) {
-    return getDestination(direction, pageId) !== null;
-}
-
 // ----- TEXTBOX NOTIFICATIONS ----
 let activePopup = null;
 
-// ---- 1. THE POPUP AT MOUSE ----
+// ---- THE POPUP AT MOUSE ----
 function spawnPopupAtMouse(event, message, speed = 40) {
     if (activePopup) activePopup.remove();
 
@@ -207,7 +195,7 @@ function spawnPopupAtMouse(event, message, speed = 40) {
     stopEventPropagation(event);
 }
 
-// ---- 2. THE THEMED BOX (Bottom/Notification) ----
+// ---- THE THEMED BOX (Bottom/Notification) ----
 function spawnThemedBox(message, positionClass) {
     if (activePopup) activePopup.remove();
 
@@ -216,7 +204,7 @@ function spawnThemedBox(message, positionClass) {
 
     // PRE-LOCK
     box.isDone = false;
-    // RECORD BIRTH: This tells the listener when the box was created
+    // RECORD BIRTH
     box.birthTime = Date.now();
 
     box.innerHTML = `<p class="box-text-content" style="margin:0; pointer-events:none;"></p>`;
@@ -231,20 +219,20 @@ function spawnThemedBox(message, positionClass) {
 document.addEventListener('click', () => {
     if (!activePopup) return;
 
-    // 1. THE BIRTH CHECK:
+    // THE BIRTH CHECK:
     // If the box was created less than 150ms ago, ignore the click.
     // This stops the "opening click" from triggering the "close logic".
     const boxAge = Date.now() - activePopup.birthTime;
     if (boxAge < 150) return;
 
-    // 2. THE LOCK:
+    // THE LOCK:
     // If isDone is false (typing is still happening), STOP.
     if (activePopup.isDone !== true) {
         console.log("Typing... Click blocked.");
         return;
     }
 
-    // 3. THE DISMISSAL:
+    // THE DISMISSAL:
     // Only if isDone is TRUE and the box isn't brand new.
     activePopup.style.opacity = '0';
     activePopup.style.transition = 'opacity 0.2s ease';
