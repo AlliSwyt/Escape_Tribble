@@ -42,8 +42,6 @@ function showPage(pageId) {
     leftArrow.classList.toggle('hidden', !getDestination('left', pageId));
     rightArrow.classList.toggle('hidden', !getDestination('right', pageId));
 
-    if (pageId === 'bd-main-page') {spawnThemedBox("TEST test test test test testtttttttttttttttttttttttttttttttttttttttttttttttt", "notification-bottom")} //FIXME -- TESTING
-
     updateMap(pageId);
 }
 
@@ -363,6 +361,15 @@ function init() {
     document.getElementById('exit-button').onclick = () => {
         window.close();
     };
+
+    //How to Play button
+    // document.getElementById('how-to-play-button').onclick = () => {
+    //     menu.classList.add('hidden');
+    //     tutorial.classList.remove('hidden');
+    //     showPage('bd-main-page');
+    // };
+
+    //fixme add back button from how to play
 
 
     // ---- IN-GAME HAMBURGER MENU ----
