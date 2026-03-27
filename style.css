@@ -148,6 +148,24 @@ body {
 
     /* Make sure text looks good */
     text-align: center;
+    pointer-events: auto; /* Allow clicking if you want to manually close */
+}
+
+.notification-arrow {
+    position: fixed !important;
+    bottom: 40% !important;    /* Distance from the floor */
+    left: 20% !important;      /* Horizontal center */
+    transform: translateX(-50%) !important;
+
+    /* Force ignore vertical centering */
+    top: auto !important;
+
+    width: 60%;
+    min-width: 40px;
+    max-width: 800px;
+
+    /* Make sure text looks good */
+    text-align: center;
     pointer-events: auto; /* Allow clicking if you want to manually close later */
 }
 

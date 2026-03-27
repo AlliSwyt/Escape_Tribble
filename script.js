@@ -19,8 +19,6 @@ const state = {
 // ----- 2. SELECTORS -----
 const menu = document.getElementById('menu-screen');
 const tutorial = document.getElementById('tutorial');
-const tutorialRightArrow = document.getElementById('tutorial-master-right-arrow');
-const tutorialLeftArrow = document.getElementById('tutorial-master-left-arrow')
 
 const startButton = document.getElementById('start-button');
 const play = document.getElementById('play');
@@ -31,141 +29,84 @@ const leftArrow = document.getElementById('master-left-arrow');
 const allPages = document.querySelectorAll('.fit');
 const inventoryTab = document.getElementById('inventory-tab');
 
+// ----- NAVIGATION MAP -----
+const roomLeads = {
+    // Book Drop (BD)
+    'bd-main-page':           { right: 'mh-bd-right-endc-page', left: 'mh-bd-left-endc-page' },
+    'bd-door-page':           { back: 'bd-main-page', forward: 'bd-slot-closed-page' },
+    'bd-door-open-page':      { back: 'bd-main-page', forward: 'bd-cart-page' },
+    'bd-slot-closed-page':    { back: 'bd-door-page' },
+    'bd-door-handle-page':    { back: 'bd-door-page' },
+    'bd-slot-open-key-page':  { back: 'bd-slot-closed-page' },
+    'bd-slot-open-page':      { back: 'bd-slot-closed-page' },
+    'bd-cart-page':           { back: 'bd-door-open-page', forward: 'bd-books-page' },
+    'bd-back-door-handle-page': { back: 'bd-door-open-page' },
+    'bd-books-page':          { back: 'bd-cart-page' },
+    'bd-fb-open-key-page':    { back: 'bd-books-page' },
+    'bd-fb-open-page':        { back: 'bd-books-page' },
+    'bd-back-door-open-page': { back: 'bd-door-open-page' },
+
+    // Projector Room (PR)
+    'pr-steps-page':          { back: 'bd-back-door-open-page', forward: 'pr-main-page' },
+    'pr-main-page':           { back: 'pr-steps-page' },
+    'pr-wr-main-page':        { back: 'pr-main-page' },
+    'pr-pw-main-book-page':   { back: 'pr-main-page' },
+    'pr-pw-main-noBook-page': { back: 'pr-main-page' },
+    'pr-pw-hole-book-page':   { back: 'pr-pw-main-book-page' },
+    'pr-pw-hole-noBook-page': { back: 'pr-pw-main-noBook-page' },
+    'pr-wr-wires-page':       { back: 'pr-wr-main-page', forward: 'pr-wr-box-page' },
+    'pr-wr-box-page':         { back: 'pr-wr-wires-page' },
+
+    // Main Hall (Right Side)
+    'mh-sl-right-endc-page':    { back: 'mh-sl-right-endc-page', forward: 'mh-hall-right-endc-page', left: 'mh-sld-page' },
+    'mh-hall-right-endc-page':  { back: 'mh-sl-right-endc-page', forward: 'mh-bh-right-endc-page' },
+    'mh-bh-right-endc-page':    { back: 'mh-hall-right-endc-page', forward: 'mh-trash-right-endc-page', right: 'bh-entrance-page' },
+    'mh-trash-right-endc-page': { back: 'mh-bh-right-endc-page', forward: 'mh-bd-right-endc-page' },
+    'mh-bd-right-endc-page':    { back: 'mh-trash-right-endc-page', forward: 'mh-li-right-endc-page', left: 'bd-main-page' },
+    'mh-li-right-endc-page':    { back: 'mh-bd-right-endc-page', forward: 'mh-cend-right-endc-kc-page', left: 'li-door-closed-page' },
+    'mh-cend-right-endc-kc-page': { back: 'mh-li-right-endc-page', right: 'ki-door-closed-page' },
+
+    // Main Hall (Left Side)
+    'mh-cend-left-endc-page':   { forward: 'mh-li-left-endc-page', left: 'ki-door-closed-page' },
+    'mh-li-left-endc-page':     { back: 'mh-cend-left-endc-page', forward: 'mh-bd-left-endc-page', right: 'li-door-closed-page' },
+    'mh-bd-left-endc-page':     { back: 'mh-li-left-endc-page', forward: 'mh-bh-left-endc-page', right: 'bd-main-page' },
+    'mh-bh-left-endc-page':     { back: 'mh-bd-left-endc-page', forward: 'mh-hall-left-endc-page' },
+    'mh-hall-left-endc-page':   { back: 'mh-bh-left-endc-page', forward: 'mh-sl-left-endc-page' },
+    'mh-sl-left-endc-page':     { back: 'mh-hall-left-endc-page', right: 'mh-sld-page' },
+
+    // Misc Rooms
+    'bh-entrance-page':       { back: 'mh-bh-right-endc-page', forward: 'bh-2-page', left: 'mh-bh-right-endc-page', right: 'mh-bh-left-endc-page' },
+    'bh-2-page':              { back: 'bh-entrance-page', forward: 'bh-3-page' },
+    'bh-3-page':              { back: 'bh-2-page' },
+    'ki-door-closed-page':    { left: 'mh-cend-left-endc-page', right: 'mh-cend-right-endc-kc-page' },
+    'ki-door-handle-page':    { back: 'ki-door-closed-page' },
+    'li-door-closed-page':    { left: 'mh-li-left-endc-page', right: 'mh-li-right-endc-page' },
+    'li-door-handle-page':    { back: 'li-door-closed-page' },
+    'mh-sld-page':            { left: 'mh-sl-left-endc-page', right: 'mh-sl-right-endc-page' }
+};
+
 // ----- 3. CORE FUNCTIONS ----
+// Replace your old getDestination with this:
+function getDestination(direction, pageId) {
+    return roomLeads[pageId]?.[direction] || null;
+}
+
+// Replace your old showPage with this:
 function showPage(pageId) {
-    // Switch the page visibility
     allPages.forEach(p => p.classList.add('hidden'));
     const target = document.getElementById(pageId);
     if (target) {
         target.classList.remove('hidden');
     }
 
-    // Toggle Arrow Visibility based on whether a destination exists
-    backArrow.classList.toggle('hidden', !getDestination('back', pageId));
-    forwardArrow.classList.toggle('hidden', !getDestination('forward', pageId));
-    leftArrow.classList.toggle('hidden', !getDestination('left', pageId));
-    rightArrow.classList.toggle('hidden', !getDestination('right', pageId));
+    // AUTO-HIDE ARROWS: If the roomLeads data doesn't have a path, hide the arrow
+    const currentPaths = roomLeads[pageId] || {};
+    backArrow.classList.toggle('hidden', !currentPaths.back);
+    forwardArrow.classList.toggle('hidden', !currentPaths.forward);
+    leftArrow.classList.toggle('hidden', !currentPaths.left);
+    rightArrow.classList.toggle('hidden', !currentPaths.right);
 
     updateMap(pageId);
-}
-
-
-// ---- 4. NAVIGATION LOGIC -----
-function getDestination(direction, pageId) {
-    if (!pageId) return null;
-
-    switch (direction) {
-        case 'back':
-            switch (pageId) {
-                // Book Drop
-                case 'bd-door-page':
-                case 'bd-door-open-page':   return 'bd-main-page';
-                case 'bd-slot-closed-page':
-                case 'bd-door-handle-page': return 'bd-door-page';
-                case 'bd-slot-open-key-page':
-                case 'bd-slot-open-page':   return 'bd-slot-closed-page';
-                case 'bd-cart-page':
-                case 'bd-back-door-handle-page': return 'bd-door-open-page';
-                case 'bd-books-page':       return 'bd-cart-page';
-                case 'bd-fb-open-key-page':
-                case 'bd-fb-open-page':     return 'bd-books-page';
-                case 'bd-back-door-open-page': return 'bd-door-open-page';
-
-                // Projector Room
-                case 'pr-steps-page':       return 'bd-back-door-open-page';
-                case 'pr-main-page':        return 'pr-steps-page';
-                case 'pr-wr-main-page':
-                case 'pr-pw-main-book-page':
-                case 'pr-pw-main-noBook-page': return 'pr-main-page';
-                case 'pr-pw-hole-book-page':   return 'pr-pw-main-book-page';
-                case 'pr-pw-hole-noBook-page': return 'pr-pw-main-noBook-page';
-                case 'pr-wr-wires-page':       return 'pr-wr-main-page';
-                case 'pr-wr-box-page':         return 'pr-wr-wires-page';
-
-                // Main Hall Right Backward
-                case 'mh-cend-right-endc-kc-page': return 'mh-li-right-endc-page';
-                case 'mh-li-right-endc-page':      return 'mh-bd-right-endc-page';
-                case 'mh-bd-right-endc-page':      return 'mh-trash-right-endc-page';
-                case 'mh-trash-right-endc-page':   return 'mh-bh-right-endc-page';
-                case 'mh-bh-right-endc-page':      return 'mh-hall-right-endc-page';
-                case 'mh-hall-right-endc-page':    return 'mh-sl-right-endc-page';
-
-                // Main Hall Left Backward
-                case 'mh-sl-left-endc-page':     return 'mh-hall-left-endc-page';
-                case 'mh-hall-left-endc-page':   return 'mh-bh-left-endc-page';
-                case 'mh-bh-left-endc-page':     return 'mh-bd-left-endc-page';
-                case 'mh-bd-left-endc-page':     return 'mh-li-left-endc-page';
-                case 'mh-li-left-endc-page':     return 'mh-cend-left-endc-page';
-
-                // Back Hall
-                case 'bh-2-page': return 'bh-entrance-page';
-                case 'bh-3-page': return 'bh-2-page';
-
-                // Kitchen
-                case 'ki-door-handle-page': return 'ki-door-closed-page';
-
-                //library
-                case 'li-door-handle-page': return 'li-door-closed-page';
-
-                default: return null;
-            }
-
-        case 'forward':
-            switch (pageId) {
-                // Main Hall Right
-                case 'mh-sl-right-endc-page':    return 'mh-hall-right-endc-page';
-                case 'mh-hall-right-endc-page':  return 'mh-bh-right-endc-page';
-                case 'mh-bh-right-endc-page':    return 'mh-trash-right-endc-page';
-                case 'mh-trash-right-endc-page': return 'mh-bd-right-endc-page';
-                case 'mh-bd-right-endc-page':    return 'mh-li-right-endc-page';
-                case 'mh-li-right-endc-page':    return 'mh-cend-right-endc-kc-page';
-
-                // Main Hall Left
-                case 'mh-cend-left-endc-page':   return 'mh-li-left-endc-page';
-                case 'mh-li-left-endc-page':     return 'mh-bd-left-endc-page';
-                case 'mh-bd-left-endc-page':     return 'mh-bh-left-endc-page';
-                case 'mh-bh-left-endc-page':     return 'mh-hall-left-endc-page';
-                case 'mh-hall-left-endc-page':   return 'mh-sl-left-endc-page';
-
-                // Back Hall
-                case 'bh-entrance-page': return 'bh-2-page';
-                case 'bh-2-page':        return 'bh-3-page';
-                default: return null;
-            }
-
-        case 'right':
-            switch (pageId) {
-                case 'bd-main-page':               return 'mh-bd-right-endc-page';
-                case 'mh-bd-left-endc-page':       return 'bd-main-page';
-                case 'mh-sl-left-endc-page':       return 'mh-sld-page';
-                case 'mh-sld-page':                return 'mh-sl-right-endc-page';
-                case 'mh-cend-right-endc-kc-page': return 'ki-door-closed-page';
-                case 'ki-door-closed-page':        return 'mh-cend-left-endc-page';
-                case 'mh-bh-right-endc-page':      return 'bh-entrance-page';
-                case 'bh-entrance-page':           return 'mh-bh-left-endc-page';
-                case 'mh-li-left-endc-page':       return 'li-door-closed-page';
-                case 'li-door-closed-page':        return 'mh-li-right-endc-page';
-                default: return null;
-            }
-
-        case 'left':
-            switch (pageId) {
-                case 'bd-main-page':               return 'mh-bd-left-endc-page';
-                case 'mh-bd-right-endc-page':      return 'bd-main-page';
-                case 'mh-sl-right-endc-page':      return 'mh-sld-page';
-                case 'mh-sld-page':                return 'mh-sl-left-endc-page';
-                case 'mh-cend-left-endc-page':     return 'ki-door-closed-page';
-                case 'ki-door-closed-page':        return 'mh-cend-right-endc-kc-page';
-                case 'mh-bh-left-endc-page':       return 'bh-entrance-page';
-                case 'bh-entrance-page':           return 'mh-bh-right-endc-page';
-                case 'mh-li-right-endc-page':      return 'li-door-closed-page';
-                case 'li-door-closed-page':        return 'mh-li-left-endc-page';
-                default: return null;
-            }
-
-        default:
-            return null;
-    }
 }
 
 function goBack()    { move('back'); }
@@ -201,45 +142,61 @@ function spawnPopupAtMouse(event, message, speed = 40) {
     stopEventPropagation(event);
 }
 
-// ---- THE THEMED BOX (Bottom/Notification) ----
+// ---- THE THEMED BOX (Bottom/notification) ----
 function spawnThemedBox(message, positionClass) {
-    if (activePopup) activePopup.remove();
+    return new Promise((resolve) => {
+        if (activePopup) activePopup.remove();
 
-    const box = document.createElement('div');
-    box.className = `theme-burgundy-gold ${positionClass}`;
+        const box = document.createElement('div');
+        box.className = `theme-burgundy-gold ${positionClass}`;
+        box.innerHTML = `<p class="box-text-content" style="margin:0; pointer-events:none;"></p>`;
 
-    // PRE-LOCK
-    box.isDone = false;
-    // RECORD BIRTH
-    box.birthTime = Date.now();
+        box.isTutorialBox = true;
+        box.isDone = false;
+        box.birthTime = Date.now();
 
-    box.innerHTML = `<p class="box-text-content" style="margin:0; pointer-events:none;"></p>`;
-    document.body.appendChild(box);
-    activePopup = box;
+        document.body.appendChild(box);
+        activePopup = box;
 
-    const textTarget = box.querySelector('.box-text-content');
-    typeWriter(textTarget, message, 40);
+        const textTarget = box.querySelector('.box-text-content');
+
+        const handleTutorialClick = (e) => {
+            // 1. Check age (Increased to 300ms for extra safety)
+            if (Date.now() - box.birthTime < 300) return;
+
+            // 2. Kill the click so the Global Controller never sees it
+            e.stopImmediatePropagation();
+
+            // 3. THE HARD LOCK: If typing isn't done, IGNORE the click
+            if (box.isDone !== true) {
+                console.log("Waiting for typewriter...");
+                return;
+            }
+
+            // 4. Success: Cleanup and Move On
+            window.removeEventListener('click', handleTutorialClick, true);
+            box.remove();
+            activePopup = null;
+            resolve();
+        };
+
+        // 'true' uses Capture Phase (Highest Priority)
+        window.addEventListener('click', handleTutorialClick, true);
+
+        typeWriter(textTarget, message, 40);
+    });
 }
-
 // ---- THE GLOBAL CLICK CONTROLLER ----
 document.addEventListener('click', () => {
-    if (!activePopup) return;
+    // 1. If there's no popup OR it's a tutorial box, EXIT immediately.
+    if (!activePopup || activePopup.isTutorialBox === true) return;
 
-    // THE BIRTH CHECK:
-    // If the box was created less than 150ms ago, ignore the click.
-    // This stops the "opening click" from triggering the "close logic".
     const boxAge = Date.now() - activePopup.birthTime;
     if (boxAge < 150) return;
 
-    // THE LOCK:
-    // If isDone is false (typing is still happening), STOP.
-    if (activePopup.isDone !== true) {
-        console.log("Typing... Click blocked.");
-        return;
-    }
+    // Only dismiss if the typewriter is finished
+    if (activePopup.isDone !== true) return;
 
-    // THE DISMISSAL:
-    // Only if isDone is TRUE and the box isn't brand new.
     activePopup.style.opacity = '0';
     activePopup.style.transition = 'opacity 0.2s ease';
 
@@ -372,15 +329,24 @@ function init() {
 
     // ---- How to Play -----
     //how to play button
-    document.getElementById('how-to-play-button').onclick = () => {
+    document.getElementById('how-to-play-button').onclick = async (e) => {
+        // STOP the click here so the window doesn't hear it
+        e.stopPropagation();
+
         menu.classList.add('hidden');
         tutorial.classList.remove('hidden');
 
         document.getElementById('tutorial-bd-main-page').classList.remove('hidden');
-
         document.getElementById('tutorial-master-left-arrow').classList.remove('hidden');
         document.getElementById('tutorial-master-right-arrow').classList.remove('hidden');
 
+        await spawnThemedBox("Click objects or doors to interact with them", "notification-bottom");
+        await spawnThemedBox("Use the arrows to move around the room!", "notification-arrow");
+        await spawnThemedBox("Good luck escaping!", "notification-bottom");
+
+        tutorial.classList.add('hidden');
+        menu.classList.remove('hidden');
+        runMenuTypewriter();
     };
 
     document.getElementById('tutorial-exit-btn').onclick = () => {
