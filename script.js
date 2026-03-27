@@ -18,8 +18,12 @@ const state = {
 
 // ----- 2. SELECTORS -----
 const menu = document.getElementById('menu-screen');
-const startButton = document.getElementById('start-button');
 const tutorial = document.getElementById('tutorial');
+const tutorialRightArrow = document.getElementById('tutorial-master-right-arrow');
+const tutorialLeftArrow = document.getElementById('tutorial-master-left-arrow')
+
+const startButton = document.getElementById('start-button');
+const play = document.getElementById('play');
 const backArrow = document.getElementById('master-back-arrow');
 const forwardArrow = document.getElementById('master-forward-arrow');
 const rightArrow = document.getElementById('master-right-arrow');
@@ -313,7 +317,7 @@ function init() {
     runMenuTypewriter();
     startButton.onclick = () => {
         menu.classList.add('hidden');
-        tutorial.classList.remove('hidden');
+        play.classList.remove('hidden');
         showPage('bd-main-page');
         document.getElementById('inventory-drawer').classList.remove('hidden');
         document.getElementById('hamburger-menu').classList.remove('hidden');
@@ -362,12 +366,24 @@ function init() {
         window.close();
     };
 
-    //How to Play button
-    // document.getElementById('how-to-play-button').onclick = () => {
-    //     menu.classList.add('hidden');
-    //     tutorial.classList.remove('hidden');
-    //     showPage('bd-main-page');
-    // };
+    // ---- How to Play -----
+    //how to play button
+    document.getElementById('how-to-play-button').onclick = () => {
+        menu.classList.add('hidden');
+        tutorial.classList.remove('hidden');
+
+        document.getElementById('tutorial-bd-main-page').classList.remove('hidden');
+
+        document.getElementById('tutorial-master-left-arrow').classList.remove('hidden');
+        document.getElementById('tutorial-master-right-arrow').classList.remove('hidden');
+
+    };
+
+    document.getElementById('tutorial-exit-btn').onclick = () => {
+        tutorial.classList.add('hidden');
+        menu.classList.remove('hidden');
+        runMenuTypewriter();
+    }
 
     //fixme add back button from how to play
 
@@ -400,7 +416,7 @@ function init() {
     //Quit to main menu button
     document.getElementById('quit-btn').onclick = () => {
         hamburgerDropdown.classList.remove('dropdown-open');
-        tutorial.classList.add('hidden');
+        play.classList.add('hidden');
         document.getElementById('inventory-drawer').classList.add('hidden');
         document.getElementById('hamburger-menu').classList.add('hidden');
         document.getElementById('hint-btn').classList.add('hidden');

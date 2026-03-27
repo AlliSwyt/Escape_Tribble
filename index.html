@@ -86,16 +86,32 @@
         </div>
     </div>
 
-    <!--Tutorial Section pages-->
+
     <div id="tutorial" class="hidden">
-        <!--back arrow is shown in each image and if clicked moves to the zoomed out image-->
+        <div id="tutorial-master-right-arrow" class="right-arrow hidden"></div>
+        <div id="tutorial-master-left-arrow" class="left-arrow hidden"></div>
+        <div id="tutorial-exit-btn" class="menu-btn visible">Exit</div>
+
+        <div id="tutorial-bd-main-page" class="fit hidden">
+            <img id="tutorial-bd-main" src="bd-images/bd-main.jpeg" alt="Game Room">
+            <div id="tutorial-bd-door-hitbox" class="hitbox"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Play Game Section pages-->
+    <div id="play" class="hidden">
+        <!-- back arrow is shown in each image and if clicked moves to the zoomed out image-->
         <div id="master-back-arrow" class="back-arrow hidden"></div>
         <div id="master-forward-arrow" class="forward-arrow hidden"></div>
         <div id="master-right-arrow" class="right-arrow hidden"></div>
         <div id="master-left-arrow" class="left-arrow hidden"></div>
 
-        <!--Naming Convention: zone, and then optionally: subzone, object, state of area/item, etc.-->
-    <!--Book Drop Pages-->
+        <!-- Naming Convention: zone, and then optionally: subzone, object, state of area/item, etc.-->
+        <!--Book Drop Pages-->
         <div id="bd-main-page" class="fit hidden">
             <img id="bd-main" src="bd-images/bd-main.jpeg" alt="Game Room">
             <div id="bd-door-hitbox" class="hitbox"></div>
