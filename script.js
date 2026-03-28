@@ -94,16 +94,17 @@ const roomLeads = {
     'bh-4-page':            { back: 'bh-3-page', forward: 'bh-end-page', left: 'bh-sh-entrance-page'},
     'bh-sh-entrance-page':   {back: 'bh-4-page', forward: 'bh-sh-cr-do-page'},
     'bh-sh-cr-do-page':      {back: 'bh-sh-entrance-page'},
+    'bh-end-page':          {back: 'bh-4-page'},
 
 
     //kitchen
-    'ki-door-closed-page':    { left: 'mh-cend-left-endc-page', right: 'mh-cend-left-endc-page' },
+    'ki-door-closed-page':    { left: 'mh-cend-right-endc-kc-page', right: 'mh-cend-left-endc-page' },
     'ki-door-handle-page':    { back: 'ki-door-closed-page' },
     'ki-door-open-page':       {back: 'ki-door-closed-page', forward: 'ki-entrance-page'},
     'ki-entrance-page':        {back: 'ki-door-open-page'},
     'ki-entrance-code-page':   {back: 'ki-door-open-page'},
     'ki-main-code-page':       {back: 'ki-entrance-code-page'},
-    'ki-main-noCode-page':      {back: 'ki-entrance-noCode-page'},
+    'ki-main-noCode-page':      {back: 'ki-entrance-page'},
     'ki-entrance-noCode-page':  {back: 'ki-entrance-page'},
     'ki-pt-code-page':          {back: 'ki-main-code-page'},
     'ki-pt-noCode-page':        {back: 'ki-main-noCode-page'},
@@ -624,7 +625,12 @@ function init() {
     };
 
     document.getElementById('ki-door-open-hitbox').onclick = () => {
-        state.foundPtCode ? showPage('ki-entrance-page') : showPage('ki-entrance-code-page');
+        if (state.foundPtCode) {
+            showPage('ki-entrance-code-page');
+        } else {
+            // Otherwise, go to the "No Code/Locked" version
+            showPage('ki-entrance-page');
+        }
     }
 
     document.getElementById('ki-pt-wall-hitbox').onclick = () => showPage('ki-main-noCode-page');
@@ -633,10 +639,9 @@ function init() {
     document.getElementById('ki-main-pt-noCode-hitbox').onclick = () => showPage('ki-pt-noCode-page');
     document.getElementById('ki-pt-noCode-hitbox').onclick = () => {
         state.foundPtCode = true;
-        showPage('ki-pt-noCode-page');
+        showPage('ki-pt-code-page');
     }
     //document.getElementById('ki-pt-code-hitbox').onclick= () => fixme add feedback
-    document.getElementById('ki-pt-noCode-hitbox').onclick = () => showPage('ki-pt-code-page');
 
 
     // ------ LIBRARY SECTION ------
