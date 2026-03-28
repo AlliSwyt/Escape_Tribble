@@ -20,6 +20,7 @@ const state = {
     bdBackDoorUnlocked: false,
     kiUnlocked: false,
     liUnlocked: false,
+    crUnlocked: false,
 
     discoveredBd: false,
     discoveredPr: false,
@@ -92,9 +93,10 @@ const roomLeads = {
     'bh-2-page':              { back: 'bh-entrance-page', forward: 'bh-3-page' },
     'bh-3-page':              { back: 'bh-2-page', forward: 'bh-4-page' },
     'bh-4-page':            { back: 'bh-3-page', forward: 'bh-end-page', left: 'bh-sh-entrance-page'},
-    'bh-sh-entrance-page':   {back: 'bh-4-page', forward: 'bh-sh-cr-do-page'},
-    'bh-sh-cr-do-page':      {back: 'bh-sh-entrance-page'},
+    'bh-sh-entrance-page':   {back: 'bh-4-page', forward: 'bh-sh-cr-dc-page'},
+    'bh-sh-cr-dc-page':      {back: 'bh-sh-entrance-page'},
     'bh-end-page':          {back: 'bh-4-page'},
+    'bh-sh-cr-do-page':      {back: 'bh-sh-cr-dc-page'},
 
 
     //kitchen
@@ -642,6 +644,20 @@ function init() {
         showPage('ki-pt-code-page');
     }
     //document.getElementById('ki-pt-code-hitbox').onclick= () => fixme add feedback
+
+
+    // ----- CREEPY ROOM SECTION -----
+    document.getElementById('bh-sh-cr-dc-hitbox').onclick = () => {
+        if (state.crUnlocked) {
+            showPage('bh-sh-cr-do-page');
+        }
+        else {
+            alert("it's locked"); //FIXME add pictures of the key pad and ability to type in the code
+        }
+    }
+    document.getElementById('bh-sh-cr-do-hitbox').onclick= () => {
+
+    }
 
 
     // ------ LIBRARY SECTION ------
