@@ -1221,7 +1221,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 #ki-door-handle-handle-hitbox {
     position: absolute;
-    top: 42%;
+    top: 63%;
     left: 31%;
     width: 7%;
     height: 11%;
@@ -1234,10 +1234,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 #ki-door-open-hitbox {
     position: absolute;
-    top: 42%;
-    left: 31%;
-    width: 7%;
-    height: 11%;
+    top: 7%;
+    left: 36%;
+    width: 31%;
+    height: 90%;
 
     background-color: transparent;
     border: 2px solid transparent;
@@ -1374,6 +1374,85 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #pw-book-open-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+/* KITCHEN HITBOXES */
+#ki-main-pt-code-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-main-pt-noCode-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-pt-code-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-pt-noCode-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-pt-wall-code-hitbox {
+    position: absolute;
+    top: 16%;
+    left: 10%;
+    width: 66%;
+    height: 71%;
+
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer; /* makes 'hand' icon so players know to click */
+    z-index: 10;
+}
+
+#ki-pt-wall-hitbox {
     position: absolute;
     top: 16%;
     left: 10%;

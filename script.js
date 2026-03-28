@@ -1,3 +1,12 @@
+//PERSONAL NOTE: paste the following into console on inspection for ease of testing
+// Object.keys(state).forEach(key => state[key] = true);
+//
+// // Show all key images in the inventory UI
+// document.querySelectorAll('.inv-item').forEach(item => item.classList.remove('hidden'));
+//
+// console.log("God Mode Activated: All keys obtained and doors unlocked.");
+
+
 let score = 0;
 // ------ 1. GAME STATE -----
 const state = {
@@ -13,7 +22,9 @@ const state = {
     liUnlocked: false,
 
     discoveredBd: false,
-    discoveredPr: false
+    discoveredPr: false,
+
+    foundPtCode: false,
 }
 
 // ----- 2. SELECTORS -----
@@ -74,15 +85,32 @@ const roomLeads = {
     'mh-hall-left-endc-page':   { back: 'mh-bh-left-endc-page', forward: 'mh-sl-left-endc-page' },
     'mh-sl-left-endc-page':     { back: 'mh-hall-left-endc-page', right: 'mh-sld-page' },
 
-    // Misc Rooms
+    'mh-sld-page':            { left: 'mh-sl-left-endc-page', right: 'mh-sl-right-endc-page' },
+
+    // back hall
     'bh-entrance-page':       { back: 'mh-bh-right-endc-page', forward: 'bh-2-page', left: 'mh-bh-right-endc-page', right: 'mh-bh-left-endc-page' },
     'bh-2-page':              { back: 'bh-entrance-page', forward: 'bh-3-page' },
-    'bh-3-page':              { back: 'bh-2-page' },
+    'bh-3-page':              { back: 'bh-2-page', forward: 'bh-4-page' },
+    'bh-4-page':            { back: 'bh-3-page', forward: 'bh-end-page', left: 'bh-sh-entrance-page'},
+    'bh-sh-entrance-page':   {back: 'bh-4-page', forward: 'bh-sh-cr-do-page'},
+    'bh-sh-cr-do-page':      {back: 'bh-sh-entrance-page'},
+
+
+    //kitchen
     'ki-door-closed-page':    { left: 'mh-cend-left-endc-page', right: 'mh-cend-left-endc-page' },
     'ki-door-handle-page':    { back: 'ki-door-closed-page' },
+    'ki-door-open-page':       {back: 'ki-door-closed-page', forward: 'ki-entrance-page'},
+    'ki-entrance-page':        {back: 'ki-door-open-page'},
+    'ki-entrance-code-page':   {back: 'ki-door-open-page'},
+    'ki-main-code-page':       {back: 'ki-entrance-code-page'},
+    'ki-main-noCode-page':      {back: 'ki-entrance-noCode-page'},
+    'ki-entrance-noCode-page':  {back: 'ki-entrance-page'},
+    'ki-pt-code-page':          {back: 'ki-main-code-page'},
+    'ki-pt-noCode-page':        {back: 'ki-main-noCode-page'},
+
+    //library
     'li-door-closed-page':    { left: 'mh-li-left-endc-page', right: 'mh-li-right-endc-page' },
     'li-door-handle-page':    { back: 'li-door-closed-page' },
-    'mh-sld-page':            { left: 'mh-sl-left-endc-page', right: 'mh-sl-right-endc-page' }
 };
 
 // ----- 3. CORE FUNCTIONS ----
@@ -583,6 +611,9 @@ function init() {
             }
             alert("Unlocked!"); // fixme feedback
         }
+        else {
+            alert("it's locked");
+        }
     };
     document.getElementById('ki-door-handle-handle-hitbox').onclick = () => {
         if (state.kiUnlocked) {
@@ -592,15 +623,26 @@ function init() {
         }
     };
 
-    //document.getElementById('ki-door-open-hitbox').onclick = () => showPage('') fixme
+    document.getElementById('ki-door-open-hitbox').onclick = () => {
+        state.foundPtCode ? showPage('ki-entrance-page') : showPage('ki-entrance-code-page');
+    }
 
+    document.getElementById('ki-pt-wall-hitbox').onclick = () => showPage('ki-main-noCode-page');
+    document.getElementById('ki-pt-wall-code-hitbox').onclick = () => showPage('ki-main-code-page');
+    document.getElementById('ki-main-pt-code-hitbox').onclick = () => showPage('ki-pt-code-page');
+    document.getElementById('ki-main-pt-noCode-hitbox').onclick = () => showPage('ki-pt-noCode-page');
+    document.getElementById('ki-pt-noCode-hitbox').onclick = () => {
+        state.foundPtCode = true;
+        showPage('ki-pt-noCode-page');
+    }
+    //document.getElementById('ki-pt-code-hitbox').onclick= () => fixme add feedback
+    document.getElementById('ki-pt-noCode-hitbox').onclick = () => showPage('ki-pt-code-page');
 
 
     // ------ LIBRARY SECTION ------
 
     //door, handle, and locking
     document.getElementById('li-door-handle-hitbox').onclick = () => showPage('li-door-handle-page');
-
 
 
     // ------ INVENTORY INSPECTION -----
@@ -619,7 +661,7 @@ function init() {
 
     inventoryItems.forEach(item => {
         item.addEventListener("click", () => {
-
+            console.log("Clicked:", item.id, "Path:", item.dataset.img, "Name:", item.dataset.item);
             const imgSrc = item.dataset.img;
             const itemName = item.dataset.item; // IMPORTANT FIX
 
